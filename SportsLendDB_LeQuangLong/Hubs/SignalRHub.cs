@@ -11,10 +11,17 @@ namespace SportsLendDB_LeQuangLong.Hubs
         {
             _equipmentService = equipmentService;
         }
+
         public async Task HubCreate(CreateEquipmentDto equipmentDto)
         {
-            await Clients.All.SendAsync("ReceiveAdd", equipmentDto);
-            await _equipmentService.AddEquipmentAsync(equipmentDto);
+            var newEquipment = await _equipmentService.AddEquipmentAsync(equipmentDto);
+
+
+            if (newEquipment != null)
+            {
+                await Clients.All.SendAsync("ReceiveAdd", newEquipment);
+            }
         }
     }
 }
+

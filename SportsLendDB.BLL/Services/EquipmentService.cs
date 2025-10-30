@@ -63,7 +63,7 @@ namespace SportsLendDB.BLL.Services
             }
         }
 
-        public async Task<bool> AddEquipmentAsync(CreateEquipmentDto equipmentDto)
+        public async Task<Equipment?> AddEquipmentAsync(CreateEquipmentDto equipmentDto)
         {
             try
             {
@@ -87,12 +87,12 @@ namespace SportsLendDB.BLL.Services
                 await _equipmentRepository.CreateAsync(equipment);
 
                 _logger.LogInformation("Equipment added successfully.");
-                return true;
+                return equipment;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while adding new equipment.");
-                return false;
+                return null;
             }
         }
 

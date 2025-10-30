@@ -7,7 +7,7 @@ namespace SportsLendDB.BLL.Interfaces
     {
         Task<(List<Equipment> List, int TotalCount)> GetEquipmentsAsync(int pageIndex, int pageSize, string? searchTerm);
         Task<Equipment?> GetEquipmentByIdAsync(int id);
-        Task<bool> AddEquipmentAsync(CreateEquipmentDto equipmentDto);
+        Task<Equipment?> AddEquipmentAsync(CreateEquipmentDto equipmentDto);
         Task<bool> UpdateEquipmentAsync(Equipment equipment);
         Task<Equipment?> CheckLoanAsync(int id);
         Task<bool> DeleteEquipmentAsync(Equipment equipment);

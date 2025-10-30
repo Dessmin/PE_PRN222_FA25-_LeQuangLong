@@ -57,19 +57,17 @@ namespace SportsLendDB_LeQuangLong.Pages.EquipmentPage
                 ModelState.AddModelError("Input.InStock", "InStock must be between 0 and 999.");
             }
 
-            var success = await _equipmentService.AddEquipmentAsync(Input);
+            var newEquipment = await _equipmentService.AddEquipmentAsync(Input);
 
-            // notify via SignalR if successful
-            if (success)
+            if (newEquipment != null)
             {
-                await _hubContext.Clients.All.SendAsync("EquipmentCreated", Input);
-
+                await _hubContext.Clients.All.SendAsync("ReceiveAdd", newEquipment);
                 TempData["Message"] = "New equipment added successfully.";
                 return RedirectToPage("/EquipmentPage/Index");
             }
 
             ModelState.AddModelError(string.Empty, "Failed to add equipment.");
-            ViewData["TypeId"] = new SelectList(await _equipmentTypeService.GetEquipmentTypesAsync(), "TypeId", "TypeName");
+            ViewData["Types"] = new SelectList(await _equipmentTypeService.GetEquipmentTypesAsync(), "TypeId", "TypeName");
             return Page();
         }
     }

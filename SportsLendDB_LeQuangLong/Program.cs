@@ -19,7 +19,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                     options.LoginPath = "/Login";
                     options.AccessDeniedPath = "/Authentication/AccessDenied";
                     options.LogoutPath = "/Authentication/Logout";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                     options.SlidingExpiration = true;
                 });
 
@@ -45,7 +45,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapHub<SignalRHub>("/hub");
+app.MapHub<SignalRHub>("/signalrhub");
 
 
 app.Run();

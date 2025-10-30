@@ -92,3 +92,63 @@
  </ul>
  </nav>
 }
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script>
+        // Create connection to SignalR hub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/signalrhub")
+            .build();
+
+        // Start connection
+        connection.start()
+            .then(() => console.log("Connected to SignalR Hub"))
+            .catch(err => console.error("SignalR connection error:", err.toString()));
+
+        // Listen for "ReceiveAdd" event
+        connection.on("ReceiveAdd", function (equipment) {
+            console.log("New equipment received:", equipment);
+
+            const tbody = document.querySelector("table tbody");
+            if (tbody) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${equipment.Id ?? ""}</td>
+                    <td>${equipment.equipmentId ?? ""}</td>
+                    <td>${equipment.name ?? ""}</td>
+                    <td>${equipment.brand ?? ""}</td>
+                    <td>${equipment.condition ?? ""}</td>
+                    <td>${equipment.dailyFeeUsd ?? ""}</td>
+                    <td>${equipment.inStock ?? ""}</td>
+                    <td>${equipment.typeName ?? ""}</td>
+                    <td>
+                        <a href="/EquipmentPage/Edit?id=${equipment.id}">Edit</a> |
+                        <a href="/EquipmentPage/Details?id=${equipment.id}">Details</a> |
+                        <a href="/EquipmentPage/Delete?id=${equipment.id}">Delete</a>
+                    </td>
+                `;
+
+                // Add new row to the top of the table
+                tbody.prepend(row);
+            }
+        });
+    </script>
+}
+
+@* @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/signalrhub")
+            .build();
+
+        connection.on("ReceiveAdd", function () {
+            // Khi có item mới, reload lại trang
+            location.reload();
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+    </script>
+} *@
+
