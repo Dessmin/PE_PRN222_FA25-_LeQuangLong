@@ -1,0 +1,64 @@
+﻿@page "/EquipmentPage/Create"
+@model SportsLendDB_LeQuangLong.Pages.EquipmentPage.CreateModel
+
+@{
+ ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Equipment</h4>
+<hr />
+<div class="row">
+ <div class="col-md-4">
+ <form method="post">
+ <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+ <div class="form-group">
+ <label asp-for="Input.Name" class="control-label"></label>
+ <input asp-for="Input.Name" class="form-control" />
+ <span asp-validation-for="Input.Name" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <label asp-for="Input.Brand" class="control-label"></label>
+ <input asp-for="Input.Brand" class="form-control" />
+ <span asp-validation-for="Input.Brand" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <label asp-for="Input.Type" class="control-label"></label>
+ <select asp-for="Input.Type" class ="form-control" asp-items="ViewBag.Types"></select>
+ <span asp-validation-for="Input.Type" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <label asp-for="Input.Condition" class="control-label"></label>
+ <select asp-for="Input.Condition" class="form-control">
+ <option value="New">New</option>
+ <option value="Good">Good</option>
+ <option value="Used">Used</option>
+ <option value="Damaged">Damaged</option>
+ </select>
+ <span asp-validation-for="Input.Condition" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <label asp-for="Input.DailyFeeUsd" class="control-label"></label>
+ <input asp-for="Input.DailyFeeUsd" class="form-control" />
+ <span asp-validation-for="Input.DailyFeeUsd" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <label asp-for="Input.InStock" class="control-label"></label>
+ <input asp-for="Input.InStock" class="form-control" />
+ <span asp-validation-for="Input.InStock" class="text-danger"></span>
+ </div>
+ <div class="form-group">
+ <input type="submit" value="Create" class="btn btn-primary" />
+ </div>
+ </form>
+ </div>
+</div>
+
+<div>
+ <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+ @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

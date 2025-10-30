@@ -1,0 +1,90 @@
+﻿@page
+@model SportsLendDB_LeQuangLong.Pages.EquipmentPage.IndexModel
+
+@{
+ ViewData["Title"] = "Index";
+}
+
+<h1>Equipment List</h1>
+
+<form method="get" class="mb-3">
+ <div class="input-group">
+ <input type="text" name="SearchString" value="@Model.SearchString" class="form-control" placeholder="Search by name or brand" />
+ <button class="btn btn-primary" type="submit">Search</button>
+ </div>
+</form>
+
+<p>
+ <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+ <thead>
+ <tr>
+ <th>Equipment ID</th>
+ <th>Name</th>
+ <th>Brand</th>
+ <th>Condition</th>
+ <th>Daily Fee (USD)</th>
+ <th>In Stock</th>
+ <th>Type</th>
+ <th></th>
+ </tr>
+ </thead>
+ <tbody>
+@foreach (var item in Model.Equipment) {
+ <tr>
+ <td>
+ @Html.DisplayFor(modelItem => item.EquipmentId)
+ </td>
+ <td>
+ @if (User.IsInRole("Manager") || User.IsInRole("Staff"))
+ {
+ <a asp-page="./Edit" asp-route-id="@item.Id">@item.Name</a>
+ }
+ else
+ {
+ <span>You have no permission to edit</span>
+ }
+ </td>
+ <td>
+ @Html.DisplayFor(modelItem => item.Brand)
+ </td>
+ <td>
+ @Html.DisplayFor(modelItem => item.Condition)
+ </td>
+ <td>
+ @Html.DisplayFor(modelItem => item.DailyFeeUsd)
+ </td>
+ <td>
+ @Html.DisplayFor(modelItem => item.InStock)
+ </td>
+ <td>
+ @(item.Type != null ? item.Type.TypeName : string.Empty)
+ </td>
+ <td>
+ <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+ <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+ <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+ </td>
+ </tr>
+}
+ </tbody>
+</table>
+
+@if (Model.TotalPages >1)
+{
+ <nav aria-label="Page navigation">
+ <ul class="pagination">
+ <li class="page-item @(Model.PageIndex==1?"disabled":"")">
+ <a class="page-link" asp-route-PageIndex="@(Model.PageIndex-1)" asp-route-SearchString="@Model.SearchString">Previous</a>
+ </li>
+ @for (int i =1; i <= Model.TotalPages; i++)
+ {
+ <li class="page-item @(Model.PageIndex==i?"active":"")"><a class="page-link" asp-route-PageIndex="@i" asp-route-SearchString="@Model.SearchString">@i</a></li>
+ }
+ <li class="page-item @(Model.PageIndex==Model.TotalPages?"disabled":"")">
+ <a class="page-link" asp-route-PageIndex="@(Model.PageIndex+1)" asp-route-SearchString="@Model.SearchString">Next</a>
+ </li>
+ </ul>
+ </nav>
+}

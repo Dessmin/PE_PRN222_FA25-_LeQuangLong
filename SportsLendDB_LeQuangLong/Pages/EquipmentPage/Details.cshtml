@@ -1,0 +1,61 @@
+﻿@page
+@model SportsLendDB_LeQuangLong.Pages.EquipmentPage.DetailsModel
+
+@{
+ ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+ <h4>Equipment</h4>
+ <hr />
+ <dl class="row">
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.EquipmentId)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.EquipmentId)
+ </dd>
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.Name)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.Name)
+ </dd>
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.Brand)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.Brand)
+ </dd>
+ @* <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.TypeId)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.TypeId)
+ </dd> *@
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.Condition)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.Condition)
+ </dd>
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.DailyFeeUsd)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.DailyFeeUsd)
+ </dd>
+ <dt class="col-sm-2">
+ @Html.DisplayNameFor(model => model.Equipment.InStock)
+ </dt>
+ <dd class="col-sm-10">
+ @Html.DisplayFor(model => model.Equipment.InStock)
+ </dd>
+ </dl>
+<div>
+ <a asp-page="./Edit" asp-route-id="@Model.Equipment.Id">Edit</a> |
+ <a asp-page="./Index">Back to List</a>
+</div>
+</div>

@@ -1,0 +1,72 @@
+﻿@page
+@model SportsLendDB_LeQuangLong.Pages.EquipmentPage.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Equipment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Equipment.Id" />
+            <div class="form-group">
+                <label asp-for="Equipment.EquipmentId" class="control-label"></label>
+                <input asp-for="Equipment.EquipmentId" class="form-control" readonly />
+                <span asp-validation-for="Equipment.EquipmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.Name" class="control-label"></label>
+                <input asp-for="Equipment.Name" class="form-control" />
+                <span asp-validation-for="Equipment.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.Brand" class="control-label"></label>
+                <input asp-for="Equipment.Brand" class="form-control" />
+                <span asp-validation-for="Equipment.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.TypeId" class="control-label"></label>
+                <select asp-for="Equipment.TypeId" class="form-control" asp-items="ViewBag.TypeId"></select>
+                <span asp-validation-for="Equipment.TypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.Condition" class="control-label"></label>
+                <input asp-for="Equipment.Condition" class="form-control" />
+                <span asp-validation-for="Equipment.Condition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.DailyFeeUsd" class="control-label"></label>
+                @if (User.IsInRole("Staff"))
+                {
+                    <input asp-for="Equipment.DailyFeeUsd" class="form-control" readonly />
+                }
+                else
+                {
+                    <input asp-for="Equipment.DailyFeeUsd" class="form-control" />
+                }
+                <span asp-validation-for="Equipment.DailyFeeUsd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Equipment.InStock" class="control-label"></label>
+                <input asp-for="Equipment.InStock" class="form-control" />
+                <span asp-validation-for="Equipment.InStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
