@@ -29,27 +29,13 @@ public partial class SportsLendDBContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    if (!optionsBuilder.IsConfigured)
-    //    {
-    //        var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-    //        optionsBuilder.UseSqlServer(config.GetConnectionString("MyCnn"));
-    //    }
-    //}
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         => optionsBuilder.UseSqlServer(GetConnectionString("DefaultConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-    public static string GetConnectionString(string connectionStringName)
     {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        string connectionString = config.GetConnectionString(connectionStringName);
-        return connectionString;
+        if (!optionsBuilder.IsConfigured)
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            optionsBuilder.UseSqlServer(config.GetConnectionString("MyCnn"));
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
