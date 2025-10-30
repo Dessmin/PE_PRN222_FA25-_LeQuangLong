@@ -12,6 +12,7 @@ namespace SportsLendDB_LeQuangLong.Pages.Authentication
         public async Task<IActionResult> OnGet()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Show the logout confirmation page instead of redirecting immediately
             return RedirectToPage("/Authentication/Login");
         }
     }

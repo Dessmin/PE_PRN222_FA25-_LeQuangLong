@@ -15,7 +15,11 @@
 </form>
 
 <p>
- <a asp-page="Create">Create New</a>
+ <a asp-page="Create" class="btn btn-primary">Create New</a>
+ @if (User.Identity?.IsAuthenticated == true)
+ {
+ <a asp-page="/Authentication/Logout" class="btn btn-secondary ms-2">Logout</a>
+ }
 </p>
 <table class="table">
  <thead>

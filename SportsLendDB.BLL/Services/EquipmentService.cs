@@ -12,13 +12,11 @@ namespace SportsLendDB.BLL.Services
     {
         private readonly ILogger _logger;
         private readonly IGenericRepository<Equipment> _equipmentRepository;
-        private readonly IEquipmentTypeService _equipmentTypeService;
 
-        public EquipmentService(ILogger<EquipmentService> logger, IEquipmentTypeService equipmentTypeService)
+        public EquipmentService(ILogger<EquipmentService> logger)
         {
             _logger = logger;
             _equipmentRepository ??= new GenericRepository<Equipment>();
-            _equipmentTypeService = equipmentTypeService;
         }
 
         public async Task<(List<Equipment> List, int TotalCount)> GetEquipmentsAsync(int pageIndex, int pageSize, string? searchTerm)
